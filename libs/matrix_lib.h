@@ -7,7 +7,6 @@
 #include <math.h>
 #include <time.h>
 #include "garro.h"
-#include "pivot.h"
 
 //prototypes
 int** readMatrix(char* filename, int rows, int columns);
@@ -15,6 +14,7 @@ char* readLine(FILE* fpr, int columns);
 void displayMatrix(int** matrix, int rows, int columns);
 int* getColumn(int** matrix, int rows, int column);
 void killColumn(int* pivot, int** matrix, int rows, int columns);
+void swapRows(int** matrix, int a, int b);
 
 //impl
 int** readMatrix(char* filename, int rows, int columns){
@@ -81,5 +81,11 @@ void killColumn(int* pivot, int** matrix, int rows, int columns) {
         int toKill = matrix[i][i];
 
     }
+}
+
+void swapRows(int** matrix, int a, int b){
+    int* swap = *(matrix + a);
+    *(matrix + a) = *(matrix + b);
+    *(matrix + b) = swap;
 }
 #endif

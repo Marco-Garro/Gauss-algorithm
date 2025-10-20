@@ -4,22 +4,18 @@
 
 int main(int argc, char* argv[]){
     if(argc != 4){
-      printf("USAGE: %s FILENAME #ROWS #COLUMNS\n", argv[0]);
-      return -1;
+        printf("USAGE: %s FILENAME #ROWS #COLUMNS\n", argv[0]);
+        return -1;
     }
 
     int rows = atoi(*(argv+2));
     int columns = atoi(*(argv+3));
     int** matrix = readMatrix(argv[1], rows, columns);
     if (matrix == NULL)
-      return -1;
-
+        return -1;
     displayMatrix(matrix, rows, columns);
-    int* p = *(matrix+1);
-    printf("%p\n", *matrix);
-    printf("%d\n", *(p+1));
     int* pivot = getPivot(matrix, rows, columns);
-
+    displayMatrix(matrix, rows, columns);
     //killColumn(matrix, pivot, rows, columns);
     return 0;
 }
