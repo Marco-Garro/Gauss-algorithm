@@ -18,15 +18,15 @@ void killColumn(int* pivot, int** matrix, int rows, int columns);
 
 //impl
 int** readMatrix(char* filename, int rows, int columns){
-    FILE* ftp = fopen(filename, "r");
-    if (ftp == NULL) {
+    FILE* fp = fopen(filename, "r");
+    if (fp == NULL) {
         printf("cannot open %s", filename);
         return NULL;
     }
 
     char* csv_matrix[rows];
     for (int i = 0; i < rows; i++)
-        *(csv_matrix + i) = readLine(ftp, columns);
+        *(csv_matrix + i) = readLine(fp, columns);
 
     int** matrix = malloc(rows * sizeof(int *));
 
@@ -47,7 +47,7 @@ char* readLine(FILE* fpr, int columns){
     char ret[columns];
     char* tmp = ret;
     char c = fgetc(fpr);
-    for(;c != '\n';tmp++){
+    for(;c != '\n' && c != EOF;tmp++){
         *tmp = c;
         c = fgetc(fpr);
     }
