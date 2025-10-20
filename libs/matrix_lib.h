@@ -14,7 +14,7 @@ int** readMatrix(char* filename, int rows, int columns);
 char* readLine(FILE* fpr, int columns);
 void displayMatrix(int** matrix, int rows, int columns);
 int* getColumn(int** matrix, int rows, int column);
-void killColumn(Pivot* pivot, int** matrix, int rows, int columns);
+void killColumn(int* pivot, int** matrix, int rows, int columns);
 
 //impl
 int** readMatrix(char* filename, int rows, int columns){
@@ -76,9 +76,9 @@ int* getColumn(int** matrix, int rows, int column) {
     return cols;
 }
 
-void killColumn(Pivot* pivot, int** matrix, int rows, int columns) {
+void killColumn(int* pivot, int** matrix, int rows, int columns) {
     for (int i = 0; i < rows; i++) {
-        int toKill = matrix[i][pivot->col];
+        int toKill = matrix[i][i];
 
     }
 }

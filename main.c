@@ -1,5 +1,5 @@
-#include "matrix_lib.h"
-#include "pivot.h"
+#include "libs/matrix_lib.h"
+#include "libs/pivot.h"
 
 
 int main(int argc, char* argv[]){
@@ -15,9 +15,11 @@ int main(int argc, char* argv[]){
       return -1;
 
     displayMatrix(matrix, rows, columns);
-    Pivot** pivots = getPivots(matrix, rows, columns);
+    int* p = *(matrix+1);
+    printf("%p\n", *matrix);
+    printf("%d\n", *(p+1));
+    int* pivot = getPivot(matrix, rows, columns);
 
-    Pivot* firstPivot = *pivots;
-    killColumn(matrix, firstPivot, rows, columns);
+    //killColumn(matrix, pivot, rows, columns);
     return 0;
 }
