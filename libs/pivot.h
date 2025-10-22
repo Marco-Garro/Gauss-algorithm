@@ -4,10 +4,10 @@
 
 
 //prototypes
-int* getPivot(int** matrix, int rows, int columns);
+float* getPivot(float** matrix, int rows, int columns);
 
 //impl
-int* getPivot(int** matrix, int rows, int columns) {
+inline float* getPivot(float** matrix, int rows, int columns) {
     int i = 0;
     for (; i < rows; i++) {
         if (matrix[i][0] != 0) {
@@ -17,7 +17,7 @@ int* getPivot(int** matrix, int rows, int columns) {
             return *matrix;
         }
     }
-
+    return NULL;
 }
 
 #endif
