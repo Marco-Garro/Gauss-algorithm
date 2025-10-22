@@ -12,7 +12,7 @@ char* readLine(FILE* fpr, int columns){
     char ret[columns];
     char* tmp = ret;
     char c = fgetc(fpr);
-    for(;c != '\n' && c != EOF;tmp++){
+    for(;c != '\n' && c != EOF; tmp++){
         *tmp = c;
         c = fgetc(fpr);
     }

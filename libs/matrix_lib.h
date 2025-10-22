@@ -62,38 +62,47 @@ inline float* getColumn(float** matrix, int rows, int column) {
 }
 
 
-inline float findLambda(float pivot, float element) {
+inline float findLambda(float pivot, float element) {   // TODO find a better way to manage float values
     float lambda = 1;
     int pivotSign = pivot > 0?1:-1;
     int elementSign = element > 0?1:-1;
-    //if (element % pivot == 0 || pivot % element == 0) {
+
+    int convertedPivot = (int) pivot * pivotSign;
+    int convertedElement = (int) element * elementSign;
+
+    int elementMultiplier = 1;
+    int pivotMultiplier = 1;
     if (pivotSign * pivot > elementSign * element) {
-        while (element - pivotSign * elementSign * lambda * pivot) {
-            lambda/=2;
-            printf("%f\n", lambda);
-        }
-    }
-    else {
-        while (element - pivotSign * elementSign * lambda * pivot)
-            lambda++;
+        while (convertedElement * elementMultiplier % convertedPivot)
+            elementMultiplier++;
+
+        pivotMultiplier = convertedElement * elementMultiplier / convertedPivot;
+        lambda = (float) pivotMultiplier / (float) elementMultiplier;
     }
 
-    printf("lambda = %f\n", lambda * (elementSign * pivotSign));
+    else {
+        while (convertedPivot * pivotMultiplier % convertedElement)
+            pivotMultiplier++;
+        elementMultiplier = convertedPivot * pivotMultiplier / convertedElement;
+        lambda = (float) pivotMultiplier / (float) elementMultiplier;
+    }
+
+    printf("lambda = %.2f\n", lambda * (elementSign * pivotSign));
     return lambda * (elementSign * pivotSign);
 }
 
-void killColumn(float** matrix, int rows, int columns) {
-    int pivot = matrix[0][0];
+inline void killColumn(float** matrix, int rows, int columns) {
+    float pivot = matrix[0][0];
     for (int i = 1; i < rows; i++) {
         if (matrix[i][0] != 0) {
             float lambda = findLambda(pivot,matrix[i][0]);
             for (int j = 0; j < columns; j++)   // iterate on the column of the pivot
-                matrix[i][j] -= lambda * matrix[0][j];     //R_i=>R_i-\lambda*R_j, TODO repeat for the whole row
+                matrix[i][j] -= lambda * matrix[0][j];
         }
     }
 }
 
-void swapRows(float** matrix, int a, int b){
+inline void swapRows(float** matrix, int a, int b){
     float* swap = *(matrix + a);
     *(matrix + a) = *(matrix + b);
     *(matrix + b) = swap;
