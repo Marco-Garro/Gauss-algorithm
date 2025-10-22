@@ -16,6 +16,7 @@ int main(int argc, char* argv[]){
     displayMatrix(matrix, rows, columns);
     int* pivot = getPivot(matrix, rows, columns);
     displayMatrix(matrix, rows, columns);
-    //killColumn(matrix, pivot, rows, columns);
+    printf("\n lambda: %f\n", findLambda(4,1));
+    //killColumn(matrix, rows, columns); // pivot always in row: 0 and column: 0
     return 0;
 }

@@ -13,7 +13,8 @@ int** readMatrix(char* filename, int rows, int columns);
 char* readLine(FILE* fpr, int columns);
 void displayMatrix(int** matrix, int rows, int columns);
 int* getColumn(int** matrix, int rows, int column);
-void killColumn(int* pivot, int** matrix, int rows, int columns);
+float findLambda(int pivot, int element);
+void killColumn(int** matrix, int rows, int columns);
 void swapRows(int** matrix, int a, int b);
 
 //impl
@@ -76,10 +77,35 @@ int* getColumn(int** matrix, int rows, int column) {
     return cols;
 }
 
-void killColumn(int* pivot, int** matrix, int rows, int columns) {
-    for (int i = 0; i < rows; i++) {
-        int toKill = matrix[i][i];
 
+float findLambda(int pivot, int element) {
+    float lambda = 1;
+    int sign = pivot > 0?1:-1;
+    if (element % pivot == 0) {
+        if (pivot < element) {
+            while (element + sign*pivot*lambda != 0)
+                lambda--;
+        }
+        else {
+            while (element + sign*pivot*lambda != 0)
+                lambda/=2;
+        }
+    }
+    else {
+        lambda = 30000000;
+    }
+    return lambda;
+}
+
+void killColumn(int** matrix, int rows, int columns) {
+    int pivot = matrix[0][0];
+    for (int i = 1; i < rows; i++) {
+        int toKill = matrix[i][0];
+        if (toKill != 0) {
+            float lambda = findLambda(pivot, toKill);
+            for (int j = 0; j < columns; j++)
+                matrix[i][j] += lambda * pivot;     //R_i=>R_i-\lambda*R_j, TODO repeat to the whole row
+        }
     }
 }
 
