@@ -62,23 +62,24 @@ inline float* getColumn(float** matrix, int rows, int column) {
 }
 
 
-float findLambda(int pivot, int element) {
+inline float findLambda(float pivot, float element) {
     float lambda = 1;
-    int sign = pivot > 0?1:-1;
-    if (element % pivot == 0) {
-        if (pivot < element) {
-            while (element + sign*pivot*lambda != 0)
-                lambda--;
-        }
-        else {
-            while (element + sign*pivot*lambda != 0)
-                lambda/=2;
+    int pivotSign = pivot > 0?1:-1;
+    int elementSign = element > 0?1:-1;
+    //if (element % pivot == 0 || pivot % element == 0) {
+    if (pivotSign * pivot > elementSign * element) {
+        while (element - pivotSign * elementSign * lambda * pivot) {
+            lambda/=2;
+            printf("%f\n", lambda);
         }
     }
     else {
-        lambda = 30000000;
+        while (element - pivotSign * elementSign * lambda * pivot)
+            lambda++;
     }
-    return lambda;
+
+    printf("lambda = %f\n", lambda * (elementSign * pivotSign));
+    return lambda * (elementSign * pivotSign);
 }
 
 void killColumn(float** matrix, int rows, int columns) {
