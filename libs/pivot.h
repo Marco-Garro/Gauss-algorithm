@@ -1,7 +1,5 @@
 #ifndef PIVOT_H_
 #define PIVOT_H_
-#include <stdio.h>
-#include <stdlib.h>
 #include "matrix_lib.h"
 
 

@@ -3,14 +3,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <math.h>
-#include <time.h>
-#include "garro.h"
+#include "other_lib.h"
 
 //prototypes
 int** readMatrix(char* filename, int rows, int columns);
-char* readLine(FILE* fpr, int columns);
 void displayMatrix(int** matrix, int rows, int columns);
 int* getColumn(int** matrix, int rows, int column);
 float findLambda(int pivot, int element);
@@ -41,19 +38,6 @@ int** readMatrix(char* filename, int rows, int columns){
     for (int i = 0; i < rows; i++)
         free(csv_matrix[i]);
     return matrix;
-}
-
-char* readLine(FILE* fpr, int columns){
-
-    char ret[columns];
-    char* tmp = ret;
-    char c = fgetc(fpr);
-    for(;c != '\n' && c != EOF;tmp++){
-        *tmp = c;
-        c = fgetc(fpr);
-    }
-    *tmp = '\0';
-    return strdup(ret);
 }
 
 void displayMatrix(int** matrix, int rows, int columns) {
