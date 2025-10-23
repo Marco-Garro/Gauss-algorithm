@@ -13,10 +13,25 @@ int main(int argc, char* argv[]){
     int** matrix = readMatrix(argv[1], rows, columns);
     if (matrix == NULL)
         return -1;
+
+    printf("Input Matrix:\n");
     displayMatrix(matrix, rows, columns);
+
+    int** matrixTmp = matrix;
+    int rowsTmp = rows;
+    int columnsTmp = columns;
     int* pivot = getPivot(matrix, rows, columns);
-    displayMatrix(matrix, rows, columns);
-    killColumn(matrix, rows, columns); // pivot always in row: 0 and column: 0
+
+    while (pivot) {
+        killColumn(matrixTmp, rowsTmp, columnsTmp); // pivot always in row: 0 and column: 0
+        matrixTmp = getSubmatrix(matrixTmp, rowsTmp, columnsTmp);
+        rowsTmp--;
+        columnsTmp--;
+        pivot = getPivot(matrixTmp, rowsTmp, columnsTmp);
+        displayMatrix(matrix, rowsTmp, columnsTmp);
+    }
+
+    printf("Output Matrix:\n");
     displayMatrix(matrix, rows, columns);
     return 0;
 }
