@@ -31,7 +31,7 @@ inline int** readMatrix(char* filename, int rows, int columns){
         matrix[i] = malloc(columns * sizeof(int));
         char** splitted = split(*(csv_matrix + i), ",");
         for (int j = 0; j < columns; j++) {
-               matrix[i][j] = atof(*(splitted + j));
+               matrix[i][j] = atoi(*(splitted + j));
         }
     }
     for (int i = 0; i < rows; i++)
@@ -42,12 +42,12 @@ inline int** readMatrix(char* filename, int rows, int columns){
 inline void displayMatrix(int** matrix, int rows, int columns) {
     putchar('\t');
     for (int i = 0; i < columns; i++)
-        printf("%d    ", i+1);
+        printf("|%d|   ", i+1);
     printf("\n\n");
     for (int i = 0; i < rows; i++) {
-        printf("%d\t", i+1);
+        printf("|%d|\t", i+1);
         for (int j = 0; j < columns; j++)
-            printf("%d    ", matrix[i][j]);
+            printf(" %d    ", matrix[i][j]);
         printf("\n\n");
     }
 }
@@ -77,5 +77,19 @@ inline void swapRows(int** matrix, int a, int b){
     int* swap = *(matrix + a);
     *(matrix + a) = *(matrix + b);
     *(matrix + b) = swap;
+}
+
+inline int** getSubmatrix(int** matrix, int rows, int columns) {    // TODO do not free the input matrix
+
+    rows--;
+    columns--;
+    int** submatrix = malloc(rows * sizeof(int *));
+    for (int i = 0; i < rows; i++) {
+        printf("element: %d, when index is: %d\n", *(matrix[i]+1), i);
+        submatrix[i] = matrix[i+1]+1;
+    }
+
+
+    return submatrix;
 }
 #endif
