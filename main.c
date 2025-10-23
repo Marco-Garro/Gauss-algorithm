@@ -1,7 +1,7 @@
 #include "libs/matrix_lib.h"
 #include "libs/pivot.h"
 
-
+// TODO memory leak in getSubmatrix, manage if a column is full of zeros
 int main(int argc, char* argv[]){
     if(argc != 4){
         printf("USAGE: %s FILENAME #ROWS #COLUMNS\n", argv[0]);
@@ -20,15 +20,14 @@ int main(int argc, char* argv[]){
     int** matrixTmp = matrix;
     int rowsTmp = rows;
     int columnsTmp = columns;
-    int* pivot = getPivot(matrix, rows, columns);
+    int* pivot = getPivot(matrix, rows);
 
     while (pivot) {
-        killColumn(matrixTmp, rowsTmp, columnsTmp); // pivot always in row: 0 and column: 0
-        matrixTmp = getSubmatrix(matrixTmp, rowsTmp, columnsTmp);
+        killColumn(matrixTmp, rowsTmp, columnsTmp);
+        matrixTmp = getSubmatrix(matrixTmp, rowsTmp);
         rowsTmp--;
         columnsTmp--;
-        pivot = getPivot(matrixTmp, rowsTmp, columnsTmp);
-        displayMatrix(matrix, rowsTmp, columnsTmp);
+        pivot = getPivot(matrixTmp, rowsTmp);
     }
 
     printf("Output Matrix:\n");

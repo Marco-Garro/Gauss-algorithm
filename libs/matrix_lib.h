@@ -12,7 +12,7 @@ void displayMatrix(int** matrix, int rows, int columns);
 int* getColumn(int** matrix, int rows, int column);
 void killColumn(int** matrix, int rows, int columns);
 void swapRows(int** matrix, int a, int b);
-int** getSubmatrix(int** matrix, int rows, int columns);
+int** getSubmatrix(int** matrix, int rows);
 
 //impl
 inline int** readMatrix(char* filename, int rows, int columns){
@@ -66,7 +66,7 @@ inline void killColumn(int** matrix, int rows, int columns) {
     for (int i = 1; i < rows; i++) {
         if (matrix[i][0] != 0) {
             int toKill = matrix[i][0];
-            for (int j = 0; j < columns; j++) { // iterate on the column of the pivot
+            for (int j = 0; j < columns; j++) {
                 matrix[i][j] *= pivot;
                 matrix[i][j] -= matrix[0][j] * toKill;
             }
@@ -80,10 +80,9 @@ inline void swapRows(int** matrix, int a, int b){
     *(matrix + b) = swap;
 }
 
-inline int** getSubmatrix(int** matrix, int rows, int columns) {    // TODO do not free the input matrix
+inline int** getSubmatrix(int** matrix, int rows) {
 
     rows--;
-    columns--;
     int** submatrix = malloc(rows * sizeof(int *));
     for (int i = 0; i < rows; i++)
         submatrix[i] = matrix[i+1]+1;
