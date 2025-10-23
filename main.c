@@ -10,11 +10,11 @@ int main(int argc, char* argv[]){
 
     int rows = atoi(*(argv+2));
     int columns = atoi(*(argv+3));
-    float** matrix = readMatrix(argv[1], rows, columns);
+    int** matrix = readMatrix(argv[1], rows, columns);
     if (matrix == NULL)
         return -1;
     displayMatrix(matrix, rows, columns);
-    float* pivot = getPivot(matrix, rows, columns);
+    int* pivot = getPivot(matrix, rows, columns);
     displayMatrix(matrix, rows, columns);
     killColumn(matrix, rows, columns); // pivot always in row: 0 and column: 0
     displayMatrix(matrix, rows, columns);
