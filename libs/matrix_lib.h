@@ -12,7 +12,7 @@ void displayMatrix(int** matrix, int rows, int columns);
 int* getColumn(int** matrix, int rows, int column);
 void killColumn(int** matrix, int rows, int columns);
 void swapRows(int** matrix, int a, int b);
-int** getSubmatrix(int** matrix, int rows);
+int** getSubmatrix(int** matrix, int rows, int isSubmatrix);
 
 //impl
 inline int** readMatrix(char* filename, int rows, int columns){
@@ -80,13 +80,18 @@ inline void swapRows(int** matrix, int a, int b){
     *(matrix + b) = swap;
 }
 
-inline int** getSubmatrix(int** matrix, int rows) {
+inline int** getSubmatrix(int** matrix, int rows, int isSubmatrix) {
 
     rows--;
     int** submatrix = malloc(rows * sizeof(int *));
     for (int i = 0; i < rows; i++)
         submatrix[i] = matrix[i+1]+1;
 
+    if (isSubmatrix) {
+        for (int i = 0; i < rows; i++)
+            free(matrix[i]);
+        free(matrix);
+    }
     return submatrix;
 }
 #endif
