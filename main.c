@@ -1,7 +1,6 @@
 #include "libs/matrix_lib.h"
 #include "libs/pivot.h"
 
-// TODO manage if a column is full of zeros
 int main(int argc, char* argv[]){
     if(argc != 4){
         printf("USAGE: %s FILENAME #ROWS #COLUMNS\n", argv[0]);

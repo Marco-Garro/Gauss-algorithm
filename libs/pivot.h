@@ -9,6 +9,7 @@ int* getPivot(int** matrix, int rows);
 //impl
 inline int* getPivot(int** matrix, int rows) {
     int i = 0;
+    printf("rows: %d\n", rows);
     for (; i < rows; i++) {
         if (matrix[i][0] != 0) {
             if (!i)
@@ -17,7 +18,10 @@ inline int* getPivot(int** matrix, int rows) {
             return *matrix;
         }
     }
-    return NULL;
+    if (rows == 0)
+        return NULL;
+
+    // TODO manage row of zeros
 }
 
 #endif
