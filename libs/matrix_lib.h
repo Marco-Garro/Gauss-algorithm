@@ -86,11 +86,9 @@ inline int** getSubmatrix(int** matrix, int rows, int isSubmatrix) {
     for (int i = 0; i < rows; i++)
         submatrix[i] = matrix[i+1]+1;
 
-    if (isSubmatrix) {
-        for (int i = 0; i < rows; i++)
-            free(matrix[i]);
+    if (isSubmatrix)
         free(matrix);
-    }
+
     return submatrix;
 }
 #endif

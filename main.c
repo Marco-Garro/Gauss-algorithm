@@ -31,5 +31,9 @@ int main(int argc, char* argv[]){
 
     printf("Output Matrix:\n");
     displayMatrix(matrix, rows, columns);
+    for (int i = 0; i < rows; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
     return 0;
 }
