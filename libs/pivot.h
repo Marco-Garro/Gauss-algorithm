@@ -4,21 +4,23 @@
 
 
 //prototypes
-int* getPivot(int** matrix, int rows);
+int* getPivot(int** matrix, int rows, int offset);
 
 //impl
-inline int* getPivot(int** matrix, int rows) {
-    int i = 0;
+inline int* getPivot(int** matrix, int rows, int offset) {
+    int i = offset;
     for (; i < rows; i++) {
-        if (matrix[i][0] != 0) {
-            if (!i)
-                return *matrix;
-            swapRows(matrix, 0,i);
-            return *matrix;
+        if (matrix[i][offset] != 0) {
+            if (!i) {
+                printf("pivot: %d\n", *(*(matrix+offset)+offset));
+                return *(matrix+offset)+offset;
+            }
+            swapRows(matrix, offset,i);
+            printf("pivot: %d\n", *(*(matrix+offset)+offset));
+            return *(matrix+offset)+offset;
         }
     }
-    if (rows == 0)
-        return NULL;
+    return NULL;
 
     // TODO manage row of zeros
 }

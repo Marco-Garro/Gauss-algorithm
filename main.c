@@ -16,24 +16,24 @@ int main(int argc, char* argv[]){
     printf("Input Matrix:\n");
     displayMatrix(matrix, rows, columns);
 
-    int** matrixTmp = matrix;
-    int rowsTmp = rows;
-    int columnsTmp = columns;
-    int* pivot = getPivot(matrix, rows);
-
+    int offset = 0;
+    int* pivot = getPivot(matrix, rows, offset);
     while (pivot) {
-        killColumn(matrixTmp, rowsTmp, columnsTmp);
-        matrixTmp = getSubmatrix(matrixTmp, rowsTmp, !(matrixTmp == matrix));
-        rowsTmp--;
-        columnsTmp--;
-        pivot = getPivot(matrixTmp, rowsTmp);
+        //printf("before kill\n");
+        //displayMatrix(matrix, rows, columns);
+        killColumn(matrix, rows, columns, offset);
+        printf("after kill\n");
+        displayMatrix(matrix, rows, columns);
+
+        offset++;
+        pivot = getPivot(matrix, rows, offset);
     }
 
     printf("Output Matrix:\n");
     displayMatrix(matrix, rows, columns);
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < rows; i++)
         free(matrix[i]);
-    }
+
     free(matrix);
     return 0;
 }
