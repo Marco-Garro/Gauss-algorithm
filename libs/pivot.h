@@ -5,6 +5,7 @@
 
 //prototypes
 int* getPivot(int** matrix, int rows, int offset);
+int checkZerosColumn(int** matrix, int rows, int offset);
 
 //impl
 inline int* getPivot(int** matrix, int rows, int offset) {
@@ -21,8 +22,16 @@ inline int* getPivot(int** matrix, int rows, int offset) {
         }
     }
     return NULL;
+}
 
-    // TODO manage row of zeros
+inline int checkZerosColumn(int** matrix, int rows, int offset) {
+    int i = offset;
+    for (; i < rows; i++) {
+        if (matrix[i][offset] != 0) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 #endif

@@ -9,23 +9,26 @@ int main(int argc, char* argv[]){
 
     int rows = atoi(*(argv+2));
     int columns = atoi(*(argv+3));
-    int** matrix = readMatrix(argv[1], rows, columns);
+    int** matrix = readMatrix(*(argv+1), rows, columns);
     if (matrix == NULL)
         return -1;
 
     printf("Input Matrix:\n");
     displayMatrix(matrix, rows, columns);
 
-    int offset = 0;
+    int offset = 0; // TODO column offset and row offset
+    while (checkZerosColumn(matrix, rows, offset) && offset <= rows)
+        offset++;
+
     int* pivot = getPivot(matrix, rows, offset);
     while (pivot) {
-        //printf("before kill\n");
-        //displayMatrix(matrix, rows, columns);
         killColumn(matrix, rows, columns, offset);
         printf("after kill\n");
         displayMatrix(matrix, rows, columns);
 
         offset++;
+        while (checkZerosColumn(matrix, rows, offset) && offset <= rows)
+            offset++;
         pivot = getPivot(matrix, rows, offset);
     }
 
