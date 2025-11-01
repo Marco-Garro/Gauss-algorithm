@@ -16,20 +16,21 @@ int main(int argc, char* argv[]){
     printf("Input Matrix:\n");
     displayMatrix(matrix, rows, columns);
 
-    int offset = 0; // TODO column offset and row offset
-    while (checkZerosColumn(matrix, rows, offset) && offset <= rows)
-        offset++;
+    int rowOffset = 0;
+    int columnOffset = 0;
+    while (checkZerosColumn(matrix, rows, rowOffset, columnOffset) && columnOffset <= rows)
+        columnOffset++;
 
-    int* pivot = getPivot(matrix, rows, offset);
+    int* pivot = getPivot(matrix, rows, rowOffset, columnOffset);
     while (pivot) {
-        killColumn(matrix, rows, columns, offset);
+        killColumn(matrix, rows, columns, rowOffset, columnOffset);
         printf("after kill\n");
         displayMatrix(matrix, rows, columns);
 
-        offset++;
-        while (checkZerosColumn(matrix, rows, offset) && offset <= rows)
-            offset++;
-        pivot = getPivot(matrix, rows, offset);
+        rowOffset++;
+        while (checkZerosColumn(matrix, rows, rowOffset, columnOffset) && columnOffset <= rows)
+            columnOffset++;
+        pivot = getPivot(matrix, rows, rowOffset, columnOffset);
     }
 
     printf("Output Matrix:\n");

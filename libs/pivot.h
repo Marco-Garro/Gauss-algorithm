@@ -4,30 +4,30 @@
 
 
 //prototypes
-int* getPivot(int** matrix, int rows, int offset);
-int checkZerosColumn(int** matrix, int rows, int offset);
+int* getPivot(int** matrix, int rows, int rowOffset, int columnOffset);
+int checkZerosColumn(int** matrix, int rows, int rowOffset, int columnOffset);
 
 //impl
-inline int* getPivot(int** matrix, int rows, int offset) {
-    int i = offset;
+inline int* getPivot(int** matrix, int rows, int rowOffset, int columnOffset) {
+    int i = rowOffset;
     for (; i < rows; i++) {
-        if (matrix[i][offset] != 0) {
+        if (matrix[i][columnOffset] != 0) {
             if (!i) {
-                printf("pivot: %d\n", *(*(matrix+offset)+offset));
-                return *(matrix+offset)+offset;
+                printf("pivot: %d\n", *(*(matrix+rowOffset)+columnOffset));
+                return *(matrix+rowOffset)+columnOffset;
             }
-            swapRows(matrix, offset,i);
-            printf("pivot: %d\n", *(*(matrix+offset)+offset));
-            return *(matrix+offset)+offset;
+            swapRows(matrix, rowOffset,i);
+            printf("pivot: %d\n", *(*(matrix+rowOffset)+columnOffset));
+            return *(matrix+rowOffset)+columnOffset;
         }
     }
     return NULL;
 }
 
-inline int checkZerosColumn(int** matrix, int rows, int offset) {
-    int i = offset;
+inline int checkZerosColumn(int** matrix, int rows, int rowOffset, int columnOffset) {
+    int i = rowOffset;
     for (; i < rows; i++) {
-        if (matrix[i][offset] != 0) {
+        if (matrix[i][columnOffset] != 0) {
             return 0;
         }
     }

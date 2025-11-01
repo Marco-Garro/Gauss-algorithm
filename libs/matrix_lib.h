@@ -8,8 +8,7 @@
 //prototypes
 int** readMatrix(char* filename, int rows, int columns);
 void displayMatrix(int** matrix, int rows, int columns);
-int* getColumn(int** matrix, int rows, int column);
-void killColumn(int** matrix, int rows, int columns, int offset);
+void killColumn(int** matrix, int rows, int columns, int rowOffset, int columnOffset);
 void swapRows(int** matrix, int a, int b);
 
 //impl
@@ -51,22 +50,14 @@ inline void displayMatrix(int** matrix, int rows, int columns) {
     }
 }
 
-inline int* getColumn(int** matrix, int rows, int column) {
-    int* cols = malloc(rows * sizeof(int));
-    for (int i = 0; i < rows; i++)
-        *(cols + i) = matrix[i][column];
-
-    return cols;
-}
-
-inline void killColumn(int** matrix, int rows, int columns, int offset) {
-    int pivot = matrix[offset][offset];
-    for (int i = offset+1; i < rows; i++) {
-        if (matrix[i][offset] != 0) {
-            int toKill = matrix[i][offset];
-            for (int j = offset; j < columns; j++) {
+inline void killColumn(int** matrix, int rows, int columns, int rowOffset, int columnOffset) {
+    int pivot = matrix[rowOffset][columnOffset];
+    for (int i = rowOffset+1; i < rows; i++) {
+        if (matrix[i][columnOffset] != 0) {
+            int toKill = matrix[i][columnOffset];
+            for (int j = columnOffset; j < columns; j++) {
                 matrix[i][j] *= pivot;
-                matrix[i][j] -= matrix[offset][j] * toKill;
+                matrix[i][j] -= matrix[rowOffset][j] * toKill;
             }
         }
     }
